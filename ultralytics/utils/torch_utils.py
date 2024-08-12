@@ -446,9 +446,9 @@ def get_latest_opset():
     version = torch.onnx.producer_version.rsplit(".", 1)[0]  # i.e. '2.3'
     return {"1.12": 15, "1.11": 14, "1.10": 13, "1.9": 12, "1.8": 12}.get(version, 12)
 
-# def intersect_dicts(da, db, exclude=()):
-#     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
-#     return {k: v for k, v in da.items() if k in db and all(x not in k for x in exclude) and v.shape == db[k].shape}
+def intersect_dicts(da, db, exclude=()):
+    """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
+    return {k: v for k, v in da.items() if k in db and all(x not in k for x in exclude) and v.shape == db[k].shape}
 
 # def intersect_dicts(da, db, exclude=()):
 #     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
@@ -471,28 +471,6 @@ def get_latest_opset():
 #         idx += 1
 
 #     return res_dict
-
-def intersect_dicts(da, db, exclude=()):
-    """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
-    res_dict = {}
-    idx = 0
-    for k, v in da.items():
-        if 200 <= idx < 206:
-            k = k.replace('16', '17')
-        elif 206 <= idx < 230:
-            k = k.replace('18', '19')
-        elif 230 <= idx < 236:
-            k = k.replace('19', '21')
-        elif 236 <= idx < 260:
-            k = k.replace('21', '23')
-        elif 260 <= idx:
-            k = k.replace('22', '25')
-
-        if k in db and v.shape == db[k].shape:
-            res_dict[k] = v
-        idx += 1
-
-    return res_dict
 
 
 def is_parallel(model):
