@@ -450,12 +450,34 @@ def get_latest_opset():
 #     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
 #     return {k: v for k, v in da.items() if k in db and all(x not in k for x in exclude) and v.shape == db[k].shape}
 
+# def intersect_dicts(da, db, exclude=()):
+#     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
+#     res_dict = {}
+#     idx = 0
+#     for k, v in da.items():
+#         if 210 <= idx < 216:
+#             k = k.replace('16', '17')
+#         elif 216 <= idx < 240:
+#             k = k.replace('18', '19')
+#         elif 240 <= idx < 246:
+#             k = k.replace('19', '21')
+#         elif 246 <= idx < 270:
+#             k = k.replace('21', '23')
+#         elif 270 <= idx:
+#             k = k.replace('22', '25')
+
+#         if k in db and v.shape == db[k].shape:
+#             res_dict[k] = v
+#         idx += 1
+
+#     return res_dict
+
 def intersect_dicts(da, db, exclude=()):
     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
     res_dict = {}
     idx = 0
     for k, v in da.items():
-        if 210 <= idx < 216:
+        if 209 <= idx < 216:
             k = k.replace('16', '17')
         elif 216 <= idx < 240:
             k = k.replace('18', '19')
