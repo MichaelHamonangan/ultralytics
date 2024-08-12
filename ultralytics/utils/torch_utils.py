@@ -483,9 +483,9 @@ def intersect_dicts(da, db, exclude=()):
             k = k.replace('18', '19')
         elif 240 <= idx < 246:
             k = k.replace('19', '21')
-        elif 246 <= idx < 280:
+        elif 246 <= idx < 260:
             k = k.replace('21', '23')
-        elif 280 <= idx:
+        elif 260 <= idx:
             k = k.replace('22', '25')
 
         if k in db and v.shape == db[k].shape:
