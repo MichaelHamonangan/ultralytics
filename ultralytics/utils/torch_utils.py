@@ -477,13 +477,13 @@ def intersect_dicts(da, db, exclude=()):
     res_dict = {}
     idx = 0
     for k, v in da.items():
-        if 210 <= idx < 216:
+        if 200 <= idx < 206:
             k = k.replace('16', '17')
-        elif 216 <= idx < 240:
+        elif 206 <= idx < 230:
             k = k.replace('18', '19')
-        elif 240 <= idx < 246:
+        elif 230 <= idx < 236:
             k = k.replace('19', '21')
-        elif 246 <= idx < 260:
+        elif 236 <= idx < 260:
             k = k.replace('21', '23')
         elif 260 <= idx:
             k = k.replace('22', '25')
