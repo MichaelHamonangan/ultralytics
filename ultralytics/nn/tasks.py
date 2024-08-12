@@ -46,7 +46,7 @@ class BaseModel(nn.Module):
             return self.loss(x, *args, **kwargs)
         return self.predict(x, *args, **kwargs)
 
-    def predict(self, x, profile=False, visualize=False, augment=False):
+    def predict(self, x, profile=False, visualize=False, augment=False, embed=None):
         """
         Perform a forward pass through the network.
 
