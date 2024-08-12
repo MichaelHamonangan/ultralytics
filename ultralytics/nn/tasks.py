@@ -293,6 +293,16 @@ class DetectionModel(BaseModel):
     def init_criterion(self):
         return v8DetectionLoss(self)
 
+class OBBModel(DetectionModel):
+    """YOLOv8 Oriented Bounding Box (OBB) model."""
+
+    def __init__(self, cfg="yolov8n-obb.yaml", ch=3, nc=None, verbose=True):
+        """Initialize YOLOv8 OBB model with given config and parameters."""
+        super().__init__(cfg=cfg, ch=ch, nc=nc, verbose=verbose)
+
+    def init_criterion(self):
+        """Initialize the loss criterion for the model."""
+        return v8OBBLoss(self)
 
 class SegmentationModel(DetectionModel):
     """YOLOv8 segmentation model."""
