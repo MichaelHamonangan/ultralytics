@@ -447,53 +447,8 @@ def get_latest_opset():
     return {"1.12": 15, "1.11": 14, "1.10": 13, "1.9": 12, "1.8": 12}.get(version, 12)
 
 def intersect_dicts(da, db, exclude=()):
-    """
-    Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values.
-
-    Args:
-        da (dict): The source dictionary from which values are copied.
-        db (dict): The target dictionary with which keys and shapes are matched.
-        exclude (tuple): A tuple of keys to exclude from the matching process.
-
-    Returns:
-        dict: A dictionary of intersecting keys with matching shapes.
-    """
-    res_dict = {}
-    
-    da_keys = list(da.keys())
-    db_keys = list(db.keys())
-
-    for k, v in da.items():
-        # Attempt to map each key to the corresponding key in db by shifting indices
-        mapped_key = None
-        for db_key in db_keys:
-            # Try to match keys by comparing base parts and allowing index shift
-            if k in db_key and v.shape == db[db_key].shape:
-                mapped_key = db_key
-                break
-            # For keys that include layer indices, attempt to remap by adjusting the index
-            k_parts = k.split('.')
-            db_key_parts = db_key.split('.')
-            if len(k_parts) == len(db_key_parts):
-                mapped_parts = []
-                for kp, dbkp in zip(k_parts, db_key_parts):
-                    if kp.isdigit() and dbkp.isdigit():
-                        mapped_parts.append(dbkp)
-                    else:
-                        mapped_parts.append(kp)
-                if '.'.join(mapped_parts) == db_key and v.shape == db[db_key].shape:
-                    mapped_key = db_key
-                    break
-
-        # If a corresponding key in db is found, add it to the result dictionary
-        if mapped_key and all(x not in mapped_key for x in exclude):
-            res_dict[mapped_key] = v
-
-    return res_dict
-
-# def intersect_dicts(da, db, exclude=()):
-#     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
-#     return {k: v for k, v in da.items() if k in db and all(x not in k for x in exclude) and v.shape == db[k].shape}
+    """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
+    return {k: v for k, v in da.items() if k in db and all(x not in k for x in exclude) and v.shape == db[k].shape}
 
 # def intersect_dicts(da, db, exclude=()):
 #     """Returns a dictionary of intersecting keys with matching shapes, excluding 'exclude' keys, using da values."""
