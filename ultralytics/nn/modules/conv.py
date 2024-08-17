@@ -469,10 +469,10 @@ class ResBlock_CBAM(nn.Module):
 
 
 class ECAAttention(nn.Module):
-    """Constructs a ECA module.
+    """Constructs an ECA module.
     Args:
-        channel: Number of channels of the input feature map
-        k_size: Adaptive selection of kernel size
+        c1: Number of input channels.
+        k_size: Kernel size for the 1D convolution, adaptively selected based on channel dimension.
     """
 
     def __init__(self, c1, k_size=3):
@@ -482,12 +482,15 @@ class ECAAttention(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
-        # feature descriptor on the global spatial information
+        # Global average pooling to squeeze spatial dimensions
         y = self.avg_pool(x)
-        y = self.conv(y.squeeze(-1).transpose(-1, -2)).transpose(-1, -2).unsqueeze(-1)
-        # Multi-scale information fusion
-        y = self.sigmoid(y)
+        y = y.view(y.size(0), 1, -1)  # Flatten for 1D convolution
+        
+        # Apply 1D convolution across the channel dimension
+        y = self.conv(y)
+        y = self.sigmoid(y).view(y.size(0), y.size(2), 1, 1)  # Reshape to original dimensions
 
+        # Scale the input features by the attention weights
         return x * y.expand_as(x)
 
 
