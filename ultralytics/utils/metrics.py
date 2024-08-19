@@ -1027,9 +1027,16 @@ class SegmentMetrics(SimpleClass):
         ]
 
     @property
+    # def curves_results(self):
+    #     """Returns dictionary of computed performance metrics and statistics."""
+    #     return self.box.curves_results + self.seg.curves_results
+    
     def curves_results(self):
-        """Returns dictionary of computed performance metrics and statistics."""
-        return self.box.curves_results + self.seg.curves_results
+        """Returns dictionary of computed performance metrics and statistics, but we suppress its output."""
+        # You can return an empty dictionary or None to prevent any output.
+        return {}
+        # Alternatively, return None if you want no result at all.
+        # return None
 
 
 class PoseMetrics(SegmentMetrics):
