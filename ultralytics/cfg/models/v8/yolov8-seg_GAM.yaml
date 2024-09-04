@@ -47,4 +47,4 @@ head:
   - [-1, 3, C2f, [1024]]  # 24 (P5/32-large)
   - [-1, 1, GAM_Attention, [1024,1024]]
  
-  - [[16, 20, 24], 1, Segment, [nc, 32, 512]] # Segment(P3, P4, P5)
+  - [[17, 21, 25], 1, Segment, [nc, 32, 512]] # Segment(P3, P4, P5)
