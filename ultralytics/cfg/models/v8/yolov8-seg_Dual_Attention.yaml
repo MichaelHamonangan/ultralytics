@@ -25,31 +25,7 @@ backbone:
   - [-1, 3, C2f, [1024, True]]
   - [-1, 1, SPPF, [1024, 5]]  # 9
  
-# YOLOv8.0n head
-head:
-  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
-  - [[-1, 6], 1, Concat, [1]]  # Cat P4
-  - [-1, 3, C2f, [512]]
-
-  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
-  - [[-1, 4], 1, Concat, [1]]  # Cat P3
-  - [-1, 3, C2f, [256]]
-  - [-1, 1, ResBlock_CBAM, [256]]  # Add CBAM after C2f in P3
-
-  - [-1, 1, Conv, [256, 3, 2]]
-  - [[-1, 12], 1, Concat, [1]]  # Cat Head P4
-  - [-1, 3, C2f, [512]]
-  - [-1, 1, GAM_Attention, [512, 512]]  # Add GAM after C2f in P4
-
-  - [-1, 1, Conv, [512, 3, 2]]
-  - [[-1, 9], 1, Concat, [1]]  # Cat Head P5
-  - [-1, 3, C2f, [1024]]
-  - [-1, 1, ResBlock_CBAM, [1024]]  # Add CBAM after C2f in P5
-
- 
-  - [[16, 20, 24], 1, Segment, [nc, 32, 512]] # Segment(P3, P4, P5)
-
-
+# # YOLOv8.0n head
 # head:
 #   - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
 #   - [[-1, 6], 1, Concat, [1]]  # Cat P4
@@ -58,13 +34,12 @@ head:
 #   - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
 #   - [[-1, 4], 1, Concat, [1]]  # Cat P3
 #   - [-1, 3, C2f, [256]]
-#   - [-1, 1, GAM_Attention, [256, 256]]  # Add GAM after C2f in P3
+#   - [-1, 1, ResBlock_CBAM, [256]]  # Add CBAM after C2f in P3
 
 #   - [-1, 1, Conv, [256, 3, 2]]
 #   - [[-1, 12], 1, Concat, [1]]  # Cat Head P4
 #   - [-1, 3, C2f, [512]]
-#   - [-1, 1, ResBlock_CBAM, [512]]  # Add CBAM after C2f in P4
-
+#   - [-1, 1, GAM_Attention, [512, 512]]  # Add GAM after C2f in P4
 
 #   - [-1, 1, Conv, [512, 3, 2]]
 #   - [[-1, 9], 1, Concat, [1]]  # Cat Head P5
@@ -73,3 +48,28 @@ head:
 
  
 #   - [[16, 20, 24], 1, Segment, [nc, 32, 512]] # Segment(P3, P4, P5)
+
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 6], 1, Concat, [1]]  # Cat P4
+  - [-1, 3, C2f, [512]]
+
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 4], 1, Concat, [1]]  # Cat P3
+  - [-1, 3, C2f, [256]]
+  - [-1, 1, GAM_Attention, [256, 256]]  # Add GAM after C2f in P3
+
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 12], 1, Concat, [1]]  # Cat Head P4
+  - [-1, 3, C2f, [512]]
+  - [-1, 1, ResBlock_CBAM, [512]]  # Add CBAM after C2f in P4
+
+
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 9], 1, Concat, [1]]  # Cat Head P5
+  - [-1, 3, C2f, [1024]]
+  - [-1, 1, ResBlock_CBAM, [1024]]  # Add CBAM after C2f in P5
+
+ 
+  - [[16, 20, 24], 1, Segment, [nc, 32, 512]] # Segment(P3, P4, P5)
